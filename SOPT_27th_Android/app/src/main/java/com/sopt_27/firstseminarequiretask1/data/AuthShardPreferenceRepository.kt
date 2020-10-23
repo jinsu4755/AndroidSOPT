@@ -11,25 +11,29 @@ class AuthShardPreferenceRepository private constructor(context: Context) {
     private val editor = shardPreference.edit()
 
     val user_id: String?
-        get() = shardPreference.getString(AUTH_SHARD_PREF+"_ID", null)
+        get() = shardPreference.getString(AUTH_SHARD_PREF + "_ID", null)
 
     val user_password: String?
         get() = shardPreference.getString(AUTH_SHARD_PREF + "_PW", null)
 
     fun saveUserId(id: String) {
-        editor.putString(AUTH_SHARD_PREF+"_ID",id).apply()
+        editor.putString(AUTH_SHARD_PREF + "_ID", id)
+            .apply()
     }
 
     fun saveUserPassword(password: String) {
-        editor.putString(AUTH_SHARD_PREF + "_PW", password).apply()
+        editor.putString(AUTH_SHARD_PREF + "_PW", password)
+            .apply()
     }
 
     fun removeUserId() {
         editor.remove(AUTH_SHARD_PREF + "_ID")
+            .commit()
     }
 
-    fun removeUserPassword(){
+    fun removeUserPassword() {
         editor.remove(AUTH_SHARD_PREF + "_PW")
+            .commit()
     }
 
     fun haveUserIdAndUserPassword(): Boolean {
