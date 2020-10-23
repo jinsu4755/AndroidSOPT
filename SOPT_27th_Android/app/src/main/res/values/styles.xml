@@ -1,0 +1,46 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="EditTextTheme" parent="Widget.AppCompat.EditText">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="android:editTextColor">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/colorGray83</item>
+    </style>
+
+    <style name="InputFormTheme" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/spoqa_han_sans</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ItemTextTheme" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="fontFamily">@font/spoqa_han_sans</item>
+        <item name="android:textStyle">bold</item>
+        <item name="backgroundTint">@android:color/white</item>
+    </style>
+
+    <style name="AccentColorButtonTheme" parent="Widget.AppCompat.Button">
+        <item name="background">@drawable/rounded_button_8dp_white</item>
+        <item name="backgroundTint">@color/button_selector</item>
+        <item name="fontFamily">@font/spoqa_han_sans</item>
+        <item name="android:textColor">@color/text_button_selector</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AccentColorTextButtonTheme" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/spoqa_han_sans</item>
+        <item name="android:textColor">@color/text_button_selector</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+</resources>
