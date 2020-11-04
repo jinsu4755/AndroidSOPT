@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "FirestSeminaRequiredTask1"
+rootProject.name = "semina"
