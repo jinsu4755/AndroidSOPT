@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="loginViewModel"
+            type="sopt.onsopt.semina.presentation.login.LoginViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_login_activity_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_login_main_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="@string/onSoptTitle"
+                android:textColor="@color/yellowFFCE05"
+                android:textSize="36dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_login_main_subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android Semina"
+                android:textSize="24dp"
+                app:layout_constraintStart_toStartOf="@id/tv_login_main_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_login_main_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_login_activity_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:layout_constraintStart_toStartOf="@id/cl_login_activity_title"
+            app:layout_constraintTop_toBottomOf="@id/cl_login_activity_title">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_login_id_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_input_background_16dp"
+                android:backgroundTint="@color/gray32"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/img_login_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:src="@drawable/ic_baseline_person_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_login_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:hint="input your id"
+                    android:text="@={loginViewModel.editTextId}"
+                    android:inputType="text"
+                    app:layout_constraintBottom_toBottomOf="@id/img_login_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/img_login_icon"
+                    app:layout_constraintTop_toTopOf="@id/img_login_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_login_pw_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/rounded_input_background_16dp"
+                android:backgroundTint="@color/gray32"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_login_id_form">
+
+                <ImageView
+                    android:id="@+id/img_login_pw_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:src="@drawable/ic_baseline_lock_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_login_pw"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:hint="input your password"
+                    android:inputType="textPassword"
+                    android:text="@={loginViewModel.editTextPassword}"
+                    app:layout_constraintBottom_toBottomOf="@id/img_login_pw_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/img_login_pw_icon"
+                    app:layout_constraintTop_toTopOf="@id/img_login_pw_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/btn_login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rounded_button_32dp"
+            android:backgroundTint="@color/button_click_yellow_to_white"
+            android:text="Login"
+            android:textSize="16dp"
+            android:textColor="@color/button_click_white_to_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_login_activity_form" />
+
+        <TextView
+            android:id="@+id/tv_account_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="8dp"
+            android:text="Don't have any account?"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_sign_up_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login_button" />
+
+        <TextView
+            android:id="@+id/tv_sign_up_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            android:text="Sign Up"
+            android:textColor="@color/button_click_yellow_to_white"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_account_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_account_text"
+            app:layout_constraintTop_toTopOf="@+id/tv_account_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
