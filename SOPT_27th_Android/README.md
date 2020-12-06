@@ -12,13 +12,13 @@
 
 ### ◾ 화면 및 플로우
 
-![screenAndFlow](https://github.com/jinsu4755/AndroidSOPT/blob/master/SOPT_27th_Android/README/Image/week1/ScreenAndFlow.png)
+![screenAndFlow](/README/Image/week1/ScreenAndFlow.png)
 
 ---
 
 ### ◾ Preview
 
-![preview](https://github.com/jinsu4755/AndroidSOPT/blob/master/SOPT_27th_Android/README/Image/week1/firstweek.gif)
+![preview](/README/Image/week1/firstweek.gif)
 
 ---
 
