@@ -1,13 +1,16 @@
 package sopt.onsopt.semina.presentation.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import sopt.onsopt.semina.databinding.ActivityLoginBinding
+import sopt.onsopt.semina.domain.user.UserDomain
+import sopt.onsopt.semina.local.AuthLocalRepository
 import sopt.onsopt.semina.presentation.MainActivity
 import sopt.onsopt.semina.presentation.signup.SignUpActivity
+import sopt.onsopt.semina.utils.loggingDebug
+import sopt.onsopt.semina.utils.showToast
 
 
 class LoginActivity : AppCompatActivity() {
@@ -19,8 +22,19 @@ class LoginActivity : AppCompatActivity() {
         val binding = ActivityLoginBinding.inflate(layoutInflater)
         binding.loginViewModel = loginViewModel
         binding.lifecycleOwner = this
+        autoLoginEvent()
         setContentView(binding.root)
         initView(binding)
+    }
+
+    private fun autoLoginEvent() {
+        if (AuthLocalRepository.getInstance(this@LoginActivity).hasUserData()) {
+            AuthLocalRepository.getInstance(this@LoginActivity).apply {
+                loggingDebug("userInfo","userName:$userName","userId:$userId")
+            }
+            showToast("Success Auto Login")
+            changeMainActivityAndFinish()
+        }
     }
 
     private fun initView(binding: ActivityLoginBinding) {
@@ -31,12 +45,10 @@ class LoginActivity : AppCompatActivity() {
     private fun onLoginEvent() {
         if (loginViewModel.validateLoginForm()) {
             changeMainActivityAndFinish()
-            Toast.makeText(applicationContext, "Hello!", Toast.LENGTH_SHORT)
-                .show()
+            showToast("Hello!!")
             return
         }
-        Toast.makeText(applicationContext, "check your id/pw", Toast.LENGTH_SHORT)
-            .show()
+        showToast("check your id/pw")
     }
 
     private fun changeMainActivityAndFinish() {
@@ -48,6 +60,30 @@ class LoginActivity : AppCompatActivity() {
     private fun changeSignUpActivityForResult() {
         val intent = Intent(applicationContext, SignUpActivity::class.java)
         startActivityForResult(intent, LoginViewModel.SIGN_UP_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == LoginViewModel.SIGN_UP_REQUEST_CODE && resultCode == RESULT_OK) {
+            applyUserData(data?.getParcelableExtra("userData"))
+        }
+    }
+
+    private fun applyUserData(userData: UserDomain?) {
+        userData?.let {
+            sendDataToViewModel(it)
+            saveDataToRepository(it)
+        }
+    }
+
+    private fun sendDataToViewModel(userDomain: UserDomain) = loginViewModel.apply {
+        editTextId.set(userDomain.userId)
+        editTextPassword.set(userDomain.userPassword)
+    }
+
+    private fun saveDataToRepository(userDomain: UserDomain) {
+        AuthLocalRepository.getInstance(this@LoginActivity)
+            .addAllData(userDomain)
     }
 
 
