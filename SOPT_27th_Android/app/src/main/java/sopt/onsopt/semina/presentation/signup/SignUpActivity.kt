@@ -3,8 +3,9 @@ package sopt.onsopt.semina.presentation.signup
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import sopt.onsopt.semina.R
 import sopt.onsopt.semina.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
@@ -13,13 +14,16 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivitySignUpBinding.inflate(layoutInflater)
+        val binding = makeDataBinding()
         binding.signUpViewModel = signUpViewModel
         binding.lifecycleOwner = this
         setContentView(binding.root)
         initViewObserve()
         initViewBind(binding)
     }
+
+    private fun makeDataBinding(): ActivitySignUpBinding =
+        DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
 
     private fun initViewObserve() {
         userNameObserve()
@@ -28,20 +32,20 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun userNameObserve() {
-        signUpViewModel.userName.observe(this) { name ->
-            signUpViewModel.checkUserName(name)
+        signUpViewModel.userName.observe(this) {
+            signUpViewModel.checkUserName()
         }
     }
 
     private fun userIdObserve() {
-        signUpViewModel.userId.observe(this) { id ->
-            signUpViewModel.checkUserId(id)
+        signUpViewModel.userId.observe(this) {
+            signUpViewModel.checkUserId()
         }
     }
 
     private fun userPasswordObserve() {
-        signUpViewModel.userPassword.observe(this) { password ->
-            signUpViewModel.checkUserPassword(password)
+        signUpViewModel.userPassword.observe(this) {
+            signUpViewModel.checkUserPassword()
         }
     }
 
@@ -50,22 +54,21 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun signUpEvent() {
-        if (signUpViewModel.validateSignUpInputValueNotNull()) {
+        if (signUpViewModel.isNotNullOrBlankUserData.value == true) {
             sendSignUpResultAndFinish()
         }
     }
 
     private fun sendSignUpResultAndFinish() {
-        setResult(SignUpViewModel.SIGN_UP_RESULT_OK, createExtraDataIntent())
+        setResult(RESULT_OK, createExtraDataIntent())
         finish()
     }
 
     private fun createExtraDataIntent(): Intent {
         return Intent().apply {
-            putExtra("userName", signUpViewModel.userName.value)
-            putExtra("userId", signUpViewModel.userId.value)
-            putExtra("userPassword", signUpViewModel.userPassword.value)
+            putExtra("userData", signUpViewModel.createUserDomain())
         }
     }
+
 
 }
