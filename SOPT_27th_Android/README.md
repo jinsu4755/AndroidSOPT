@@ -12,13 +12,13 @@
 
 ### ◾ 화면 및 플로우
 
-![screenAndFlow](/README/Image/week1/ScreenAndFlow.png)
+![screenAndFlow](./README/Image/week1/ScreenAndFlow.png)
 
 ---
 
 ### ◾ Preview
 
-![preview](/README/Image/week1/firstweek.gif)
+![preview](./README/Image/week1/firstweek.gif)
 
 ---
 
