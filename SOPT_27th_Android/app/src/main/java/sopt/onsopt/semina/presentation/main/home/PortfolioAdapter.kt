@@ -17,7 +17,7 @@ class PortfolioAdapter : RecyclerView.Adapter<PortfolioAdapter.ViewHolder>() {
 
     private var onDetailClickListener: ((url:String) -> Unit)? = null
 
-    var data: MutableList<PortfolioDomain> = mutableListOf()
+    private val data: MutableList<PortfolioDomain> = mutableListOf()
 
     fun addOnDetailClickListener(listener: (url:String) -> Unit) {
         this.onDetailClickListener = listener
