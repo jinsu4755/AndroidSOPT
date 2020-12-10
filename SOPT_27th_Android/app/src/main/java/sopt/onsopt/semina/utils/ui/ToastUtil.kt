@@ -1,4 +1,4 @@
-package sopt.onsopt.semina.utils
+package sopt.onsopt.semina.utils.ui
 
 import android.app.Activity
 import android.widget.Toast

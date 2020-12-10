@@ -3,7 +3,9 @@ package sopt.onsopt.semina.utils
 import android.text.TextUtils
 import android.util.Log
 
-fun loggingDebug(vararg logMessages:String) {
+fun loggingDebug(
+    loggingTag:String?,
+    vararg logMessages:String) {
     val logMessage = TextUtils.join("\n", logMessages)
-    Log.d("jinsu4755:DEBUG",logMessage)
+    Log.d(loggingTag?:"jinsu4755:DEBUG",logMessage)
 }

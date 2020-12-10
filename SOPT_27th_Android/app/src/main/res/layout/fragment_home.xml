@@ -1,25 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="MainViewModel"
+            type="sopt.onsopt.semina.presentation.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/portfolio_list_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:text="@string/jinsu4755_s_repository"
+            android:textColor="@color/yellowFFCE05"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/portfolio_list"
+            app:layout_constraintEnd_toStartOf="@+id/portfolio_layout_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/portfolio_layout_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->MainViewModel.onLayoutTypeClick()}"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="8dp"
+            android:text="@{MainViewModel.layoutType}"
+            android:textColor="@color/button_click_yellow_to_white"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/portfolio_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_portfolio"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/portfolio_layout_button"
+            tools:listitem="@layout/item_portfolio" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,4 +1,4 @@
-package sopt.onsopt.semina.presentation
+package sopt.onsopt.semina.presentation.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

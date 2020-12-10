@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import sopt.onsopt.semina.databinding.ActivityLoginBinding
 import sopt.onsopt.semina.domain.user.UserDomain
 import sopt.onsopt.semina.local.AuthLocalRepository
-import sopt.onsopt.semina.presentation.MainActivity
+import sopt.onsopt.semina.presentation.main.MainActivity
 import sopt.onsopt.semina.presentation.signup.SignUpActivity
 import sopt.onsopt.semina.utils.loggingDebug
-import sopt.onsopt.semina.utils.showToast
+import sopt.onsopt.semina.utils.ui.showToast
 
 
 class LoginActivity : AppCompatActivity() {

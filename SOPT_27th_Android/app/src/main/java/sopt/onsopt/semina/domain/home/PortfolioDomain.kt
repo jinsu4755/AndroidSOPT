@@ -2,11 +2,11 @@ package sopt.onsopt.semina.domain.home
 
 data class PortfolioDomain(
     val full_name:String,
-    val description:String,
+    val description: String?,
     val html_url:String,
-    val owner:Owner
+    val owner:OwnerDomain
 )
 
-data class Owner(
+data class OwnerDomain(
     val avatar_url:String
 )

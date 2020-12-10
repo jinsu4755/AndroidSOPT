@@ -1,4 +1,4 @@
-package sopt.onsopt.semina.utils
+package sopt.onsopt.semina.utils.ui
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
