@@ -14,11 +14,9 @@ class MainViewModel : ViewModel() {
     fun onLayoutTypeClick() {
         if (_layoutType.value == LIST_LAYOUT) {
             _layoutType.value = GRID_LAYOUT
-            loggingDebug(null,"changeGrid",layoutType.value.toString())
             return
         }
         _layoutType.value = LIST_LAYOUT
-        loggingDebug(null,"changeList",layoutType.value.toString())
     }
 
 
