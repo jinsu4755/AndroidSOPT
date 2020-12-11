@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created By: jinsu4755
+  ~ on 2020.12.11
+  -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_main_host"
+    app:startDestination="@id/nav_portfolio">
+
+    <fragment
+        android:id="@+id/nav_portfolio"
+        android:name="sopt.onsopt.semina.presentation.main.portfolio.PortfolioFragment"
+        android:label="PortfolioFragment" />
+    <fragment
+        android:id="@+id/nav_dummy"
+        android:name="sopt.onsopt.semina.presentation.main.dummy.DummyFragment"
+        android:label="DummyFragment" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="sopt.onsopt.semina.presentation.main.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+</navigation>

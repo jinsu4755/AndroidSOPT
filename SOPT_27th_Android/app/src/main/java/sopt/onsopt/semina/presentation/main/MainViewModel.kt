@@ -4,6 +4,7 @@ import android.widget.GridLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import sopt.onsopt.semina.utils.loggingDebug
 
 class MainViewModel : ViewModel() {
@@ -11,12 +12,20 @@ class MainViewModel : ViewModel() {
     val layoutType: LiveData<String>
         get() = _layoutType
 
+    private val _currentNavController = MutableLiveData<NavController>()
+    val currentNavController:LiveData<NavController>
+        get() = _currentNavController
+
     fun onLayoutTypeClick() {
         if (_layoutType.value == LIST_LAYOUT) {
             _layoutType.value = GRID_LAYOUT
             return
         }
         _layoutType.value = LIST_LAYOUT
+    }
+
+    fun setNavController() {
+
     }
 
 

@@ -1,4 +1,4 @@
-package sopt.onsopt.semina.domain.home
+package sopt.onsopt.semina.domain.profile
 
 data class ProfileDomain(
     val login:String,

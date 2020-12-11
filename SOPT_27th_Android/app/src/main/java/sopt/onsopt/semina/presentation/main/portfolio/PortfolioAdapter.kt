@@ -3,13 +3,11 @@
  * on 2020.12.10
  */
 
-package sopt.onsopt.semina.presentation.main.home
+package sopt.onsopt.semina.presentation.main.portfolio
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import sopt.onsopt.semina.R
 import sopt.onsopt.semina.databinding.ItemPortfolioBinding
 import sopt.onsopt.semina.domain.home.PortfolioDomain
 

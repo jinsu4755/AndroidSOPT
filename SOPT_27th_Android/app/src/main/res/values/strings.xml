@@ -2,4 +2,7 @@
     <string name="app_name">Semina</string>
     <string name="onSoptTitle">27th On SOPT</string>
     <string name="jinsu4755_s_repository">Jinsu4755`s Repository</string>
+    <string name="portfolio">Portfolio</string>
+    <string name="profile">profile</string>
+    <string name="dummydata">dummyData</string>
 </resources>
