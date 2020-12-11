@@ -3,11 +3,10 @@
  * on 2020.12.10
  */
 
-package sopt.onsopt.semina.presentation.main.home
+package sopt.onsopt.semina.presentation.main.portfolio
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import androidx.databinding.DataBindingUtil

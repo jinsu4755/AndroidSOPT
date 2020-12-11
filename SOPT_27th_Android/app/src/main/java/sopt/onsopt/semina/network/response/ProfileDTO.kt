@@ -6,7 +6,7 @@
 package sopt.onsopt.semina.network.response
 
 import com.squareup.moshi.JsonClass
-import sopt.onsopt.semina.domain.home.ProfileDomain
+import sopt.onsopt.semina.domain.profile.ProfileDomain
 
 @JsonClass(generateAdapter = true)
 data class ProfileDTO(

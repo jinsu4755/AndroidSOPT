@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created By: jinsu4755
+  ~ on 2020.12.10
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_portfolio"
+        android:title="@string/portfolio"
+        android:icon="@drawable/ic_baseline_library_books_24"
+        />
+    <item android:id="@+id/nav_dummy"
+        android:title="@string/dummydata"
+        android:icon="@drawable/ic_baseline_data_usage_24"/>
+
+    <item android:id="@+id/nav_profile"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_baseline_person_24"
+        />
+</menu>
