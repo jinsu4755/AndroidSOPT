@@ -18,6 +18,8 @@
 ### ◾ Preview
 
 <img src="./README/week6/week6.gif" style="zoom: 50%;" />
+<img src="https://user-images.githubusercontent.com/45380072/101910419-3f07a980-3c02-11eb-8088-06706247e5d9.png" style="zoom: 50%;"/>
+<img src="https://user-images.githubusercontent.com/45380072/101910638-8e4dda00-3c02-11eb-9023-d48796589170.png" style="zoom: 50%;"/>
 
 ---
 
