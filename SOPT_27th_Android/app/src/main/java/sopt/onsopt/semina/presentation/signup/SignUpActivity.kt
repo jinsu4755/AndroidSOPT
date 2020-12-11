@@ -7,6 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import sopt.onsopt.semina.R
 import sopt.onsopt.semina.databinding.ActivitySignUpBinding
+import sopt.onsopt.semina.domain.user.SignUpDomain
+import sopt.onsopt.semina.network.request.SignUpRequest
+import sopt.onsopt.semina.network.response.BaseResponse
+import sopt.onsopt.semina.network.response.SignUpDTO
+import sopt.onsopt.semina.utils.ui.showToast
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -55,18 +60,25 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun signUpEvent() {
         if (signUpViewModel.isNotNullOrBlankUserData.value == true) {
-            sendSignUpResultAndFinish()
+            requestSignUp()
         }
     }
 
+    private fun requestSignUp() {
+        SignUpRequest(signUpViewModel.createUserDomain()).apply {
+            setOnSuccessListener { sendSignUpResultAndFinish() }
+            setOnErrorListener { showToast(it.toString()) }
+        }.send()
+    }
+
     private fun sendSignUpResultAndFinish() {
-        setResult(RESULT_OK, createExtraDataIntent())
+        setResult(RESULT_OK, createExtraDataIntent(signUpViewModel.createUserDomain()))
         finish()
     }
 
-    private fun createExtraDataIntent(): Intent {
+    private fun createExtraDataIntent(signUpData: SignUpDomain): Intent {
         return Intent().apply {
-            putExtra("userData", signUpViewModel.createUserDomain())
+            putExtra("userData", signUpData)
         }
     }
 

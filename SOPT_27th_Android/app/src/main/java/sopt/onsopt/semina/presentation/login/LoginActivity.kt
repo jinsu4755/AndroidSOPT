@@ -5,8 +5,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import sopt.onsopt.semina.databinding.ActivityLoginBinding
-import sopt.onsopt.semina.domain.user.UserDomain
+import sopt.onsopt.semina.domain.user.SignInDomain
+import sopt.onsopt.semina.domain.user.SignUpDomain
 import sopt.onsopt.semina.local.AuthLocalRepository
+import sopt.onsopt.semina.network.request.SignInRequest
 import sopt.onsopt.semina.presentation.main.MainActivity
 import sopt.onsopt.semina.presentation.signup.SignUpActivity
 import sopt.onsopt.semina.utils.loggingDebug
@@ -28,13 +30,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun autoLoginEvent() {
-        if (AuthLocalRepository.getInstance(this@LoginActivity).hasUserData()) {
+        /*if (AuthLocalRepository.getInstance(this@LoginActivity).hasUserData()) {
             AuthLocalRepository.getInstance(this@LoginActivity).apply {
                 loggingDebug("userInfo","userName:$userName","userId:$userId")
             }
             showToast("Success Auto Login")
             changeMainActivityAndFinish()
-        }
+        }*/
     }
 
     private fun initView(binding: ActivityLoginBinding) {
@@ -44,16 +46,27 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onLoginEvent() {
         if (loginViewModel.validateLoginForm()) {
-            changeMainActivityAndFinish()
-            showToast("Hello!!")
+            requestSignIn()
             return
         }
         showToast("check your id/pw")
     }
 
+    private fun requestSignIn() {
+        val signInData = SignInDomain(
+            email = loginViewModel.editTextId.get()!!,
+            password = loginViewModel.editTextPassword.get()!!
+        )
+        SignInRequest(signInData).apply {
+            setOnSuccessListener { changeMainActivityAndFinish() }
+            setOnErrorListener { showToast(it.toString()) }
+        }.send()
+    }
+
     private fun changeMainActivityAndFinish() {
         val intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
+        showToast("Hello!!")
         finish()
     }
 
@@ -69,21 +82,21 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun applyUserData(userData: UserDomain?) {
-        userData?.let {
+    private fun applyUserData(signUpData: SignUpDomain?) {
+        signUpData?.let {
             sendDataToViewModel(it)
             saveDataToRepository(it)
         }
     }
 
-    private fun sendDataToViewModel(userDomain: UserDomain) = loginViewModel.apply {
-        editTextId.set(userDomain.userId)
-        editTextPassword.set(userDomain.userPassword)
+    private fun sendDataToViewModel(signUpDomain: SignUpDomain) = loginViewModel.apply {
+        editTextId.set(signUpDomain.email)
+        editTextPassword.set(signUpDomain.password)
     }
 
-    private fun saveDataToRepository(userDomain: UserDomain) {
+    private fun saveDataToRepository(signUpDomain: SignUpDomain) {
         AuthLocalRepository.getInstance(this@LoginActivity)
-            .addAllData(userDomain)
+            .addAllData(signUpDomain)
     }
 
 

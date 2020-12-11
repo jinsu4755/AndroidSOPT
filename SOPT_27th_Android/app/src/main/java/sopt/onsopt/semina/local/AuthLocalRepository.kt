@@ -2,7 +2,7 @@ package sopt.onsopt.semina.local
 
 import android.app.Activity
 import android.content.Context
-import sopt.onsopt.semina.domain.user.UserDomain
+import sopt.onsopt.semina.domain.user.SignUpDomain
 
 class AuthLocalRepository private constructor(context: Context) {
     private val shardPreference =
@@ -25,10 +25,10 @@ class AuthLocalRepository private constructor(context: Context) {
         set(value) = editor.putString(USER_NAME, value)
             .apply()
 
-    fun addAllData(userDomain: UserDomain) = editor.apply {
-        putString(USER_ID, userDomain.userId)
-        putString(USER_PW, userDomain.userPassword)
-        putString(USER_NAME, userDomain.userName)
+    fun addAllData(signUpDomain: SignUpDomain) = editor.apply {
+        putString(USER_ID, signUpDomain.email)
+        putString(USER_PW, signUpDomain.password)
+        putString(USER_NAME, signUpDomain.userName)
     }.apply()
 
     fun removeAllData() = editor.apply {
