@@ -3,7 +3,7 @@ package sopt.onsopt.semina.presentation.signup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import sopt.onsopt.semina.domain.user.UserDomain
+import sopt.onsopt.semina.domain.user.SignUpDomain
 
 class SignUpViewModel : ViewModel() {
 
@@ -49,9 +49,9 @@ class SignUpViewModel : ViewModel() {
                 && !(isBlankUserPassword.value ?: true)
     }
 
-    fun createUserDomain(): UserDomain = UserDomain(
+    fun createUserDomain(): SignUpDomain = SignUpDomain(
         userName = userName.value,
-        userId = userId.value,
-        userPassword = userPassword.value
+        email = userId.value,
+        password = userPassword.value
     )
 }
