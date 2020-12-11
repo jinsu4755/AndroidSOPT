@@ -18,9 +18,10 @@
 ### ◾ Preview
 
 <img src="./README/week6/week6.gif" style="zoom: 50%;" />
+
+### ◾ data request and response test with postman
 <img src="https://user-images.githubusercontent.com/45380072/101910419-3f07a980-3c02-11eb-8088-06706247e5d9.png" style="zoom: 50%;"/>
 <img src="https://user-images.githubusercontent.com/45380072/101910638-8e4dda00-3c02-11eb-9023-d48796589170.png" style="zoom: 50%;"/>
-
 ---
 
 ### ◾ Feature
@@ -42,6 +43,9 @@
 
 
 #### ◾ [필수]  로그인/회원가입 api 적용하기
+
+ ◾ 모든 요청에 대해 실패하면 다음과 같이 Toast 메시지를 띄웁니다. 성공하는 경우는 이전 세미나와 동일하게 flow가 흘러갑니다.
+<img src="https://user-images.githubusercontent.com/45380072/101910768-c2c19600-3c02-11eb-858c-03f551ebaeda.png" style="zoom: 50%;"/>
 
 🥕 : retrofit interface와 구현체 부분을 따로 두지 않고 인터페이스 내부 동반 객체를 활용하여 동반객체로 하여 interface를 구현하도록 작성하였고 해당 동반 객체는 인터페이스를 싱글턴으로 제공합니다.
 
