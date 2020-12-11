@@ -8,8 +8,8 @@
 | ---- | ---------------- | ------------------------------------------------------------ |
 | 1    | 필수,성장1,성장2 | [1차 세미나 과제 README](https://github.com/jinsu4755/AndroidSOPT/blob/week1(MVVM)-login%2CsignUp%2CAutoLogin/SOPT_27th_Android/README.md) |
 | 2    | 필수,성장1       | [2차 세미나 과제 README](https://github.com/jinsu4755/AndroidSOPT/blob/week2(MVVM)/SOPT_27th_Android/README.md) |
-| 3    | 필수             |                                                              |
-| 6    |                  |                                                              |
+| 3    | 필수             | [3차 세미나 과제 README](https://github.com/jinsu4755/AndroidSOPT/blob/week3(MVVM)/SOPT_27th_Android/README.md) |
+| 6    | 필수             |                                                              |
 
 
 
