@@ -13,18 +13,18 @@
 
 
 
-## 1️⃣2020/10/23 2차 세미나 과제
+## 1️⃣2020/12/11 6차 세미나 과제
 
 ### ◾ Preview
 
-<img src="./README/week3/week3.gif" style="zoom: 50%;" />
+<img src="./README/week6/week6.gif" style="zoom: 50%;" />
 
 ---
 
 ### ◾ Feature
 
-- SignUp
-- Login
+- SignUp - server
+- Login - server
   - AutoLogin
 - Portfolio - github api 연동
   - List Layout
@@ -39,118 +39,181 @@
 
 
 
-#### ◾ [필수]  하단탭+뷰페이저 구현(포트폴리오,비어있는화면,프로필)
+#### ◾ [필수]  로그인/회원가입 api 적용하기
 
-🥕 : 하단 탭은 android jetpack navigation을 사용하여 작성하였습니다.
-
-```xml
-<-- main.xml -->
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation_main"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:itemIconTint="@color/button_click_yellow_to_white"
-            app:itemTextColor="@color/button_click_yellow_to_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/menu_main_bottom_navigation" />
-
-        <fragment
-            android:id="@+id/nav_host_fragment_main"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_main"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/nav_main_host" />
-    
-<-- menu -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_portfolio"
-        android:title="@string/portfolio"
-        android:icon="@drawable/ic_baseline_library_books_24"
-        />
-    <item android:id="@+id/nav_dummy"
-        android:title="@string/dummydata"
-        android:icon="@drawable/ic_baseline_data_usage_24"/>
-
-    <item android:id="@+id/nav_profile"
-        android:title="@string/profile"
-        android:icon="@drawable/ic_baseline_person_24"
-        />
-</menu>
-    
-<-- nav -->
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_main_host"
-    app:startDestination="@id/nav_portfolio">
-
-    <fragment
-        android:id="@+id/nav_portfolio"
-        android:name="sopt.onsopt.semina.presentation.main.portfolio.PortfolioFragment"
-        android:label="PortfolioFragment" />
-    <fragment
-        android:id="@+id/nav_dummy"
-        android:name="sopt.onsopt.semina.presentation.main.dummy.DummyFragment"
-        android:label="DummyFragment" />
-    <fragment
-        android:id="@+id/nav_profile"
-        android:name="sopt.onsopt.semina.presentation.main.profile.ProfileFragment"
-        android:label="ProfileFragment" />
-</navigation>
-```
-
-
-
-🥕 : Profile 화면은 Portfolio와 동일하게 GithubApi를 사용하였습니다.
+🥕 : retrofit interface와 구현체 부분을 따로 두지 않고 인터페이스 내부 동반 객체를 활용하여 동반객체로 하여 interface를 구현하도록 작성하였고 해당 동반 객체는 인터페이스를 싱글턴으로 제공합니다.
 
 ```kotlin
-private fun requestUserProfile() {
-        GitProfileRequest().apply {
-            setOnSuccessListener { onSuccessGetProfile(it) }
-        }.send()
-    }
+interface SOPTService {
 
-    private fun onSuccessGetProfile(profileDTO: ProfileDTO) {
-        binding.gitProfile = profileDTO.asDomainModel()
-    }
-```
+    @POST("signup")
+    fun requestSignUp(
+        @Header("Content-Type") contentType:String = "application/json",
+        @Body signUpData:SignUpDomain
+    ): Call<BaseResponse<SignUpDTO>>
 
-onViewCreated 상태에서 서버 호출을 하여 다음과 같으 뷰에 데이터를 넘깁니다.
+    @POST("signin")
+    fun requestSignIn(
+        @Header("Content-Type") contentType:String = "application/json",
+        @Body signInData:SignInDomain
+    ):Call<BaseResponse<SignInDTO>>
 
+    companion object {
+        private const val BASE_URL = "http://15.164.83.210:3000/users/"
 
+        @Volatile
+        private var instance: SOPTService? = null
 
-🥕 : 상단 탭 구현은 세미나와 동일하게 하였습니다.
-
-```kotlin
-private fun initViewPager() {
-    viewPagerAdapter = ProfileViewPagerAdapter(requireActivity().supportFragmentManager)
-    binding.viewPagerInfo.adapter = viewPagerAdapter
-    binding.tabLayout.setupWithViewPager(binding.viewPagerInfo)
-    binding.tabLayout.apply {
-        getTabAt(0)?.text = "INFO1"
-        getTabAt(1)?.text = "INFO2"
+        fun getInstance(): SOPTService = instance ?: synchronized(this) {
+            instance ?: provideService(SOPTService::class.java, BASE_URL)
+                .apply { instance = this }
+        }
     }
 }
 ```
 
-```kotlin
-class ProfileViewPagerAdapter(
-    fragmentManager: FragmentManager
-) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    override fun getCount(): Int = 2
+기본적으로 해당 인터페이스를 사용하기 위해서 getInstance를 호출하며 해당 메소드는 인터페이스의 인스턴스를 던져줍니다.
 
-    override fun getItem(position: Int): Fragment = when (position) {
-        0 -> InfoFirstFragment()
-        1 -> InfoSecondFragment()
-        else -> throw IllegalStateException("존재하지 않는 탭 접근.")
+
+
+만약 인스턴스가 없다면 멀티스레드 환경에서도 세이프티하게 인스턴스를 제작하여 넘겨줍니다.
+
+```kotlin
+val moshi:Moshi = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory())
+    .build()
+
+
+fun <T> provideService(clazz: Class<T>, baseUrl: String): T = Retrofit.Builder()
+    .baseUrl(baseUrl)
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .build()
+    .create(clazz)
+```
+
+provideService 메소드에서 retrofit을 만들고 해당 retrofit을 사용하여 인터페이스를 구현하고 return합니다.
+
+
+
+
+
+🥕 : 공동 부분은 베이스로 묶었습니다.
+
+```kotlin
+data class BaseResponse<T>(
+    val status: Int,
+    val success: Boolean,
+    val message: String,
+    val data: T
+)
+```
+
+공통으로 오는 응답 객체를 만들었으며
+
+```kotlin
+abstract class BaseRequest<ResponseAPI> : Callback<ResponseAPI> {
+
+    private var onSuccessListener: ((ResponseAPI) -> Unit)? = null
+    private var onErrorListener: ((String?) -> Unit)? = null
+    private var onFailureListener: (() -> Unit)? = null
+
+    fun setOnSuccessListener(listener: (ResponseAPI) -> Unit) {
+        this.onSuccessListener = listener
+    }
+
+    fun setOnErrorListener(listener: (String?) -> Unit) {
+        this.onErrorListener = listener
+    }
+
+    fun setOnFailureListener(listener: () -> Unit) {
+        this.onFailureListener = listener
+    }
+
+    fun send() {
+        createCall().enqueue(this)
+    }
+
+    protected abstract fun createCall(): Call<ResponseAPI>
+
+    override fun onResponse(call: Call<ResponseAPI>, response: Response<ResponseAPI>) {
+        if (response.isSuccessful) {
+            onSuccessListener?.invoke(response.body() ?: return)
+            return
+        }
+        val errorBody = response.errorBody() ?: return
+        val errorMessage = createErrorBody(errorBody)?.message
+        onErrorListener?.invoke(errorMessage)
+    }
+
+    private fun createErrorBody(errorBody: ResponseBody): GitHubAPIErrorBody? {
+        val moshi: Moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+        return moshi.adapter(GitHubAPIErrorBody::class.java).fromJson(errorBody.source())
+    }
+
+    override fun onFailure(call: Call<ResponseAPI>, t: Throwable) {
+        logFailureMessage(t)
+        onFailureListener?.invoke()
+    }
+
+    private fun logFailureMessage(t: Throwable) {
+        Log.d(SERVER_ERROR_TAG, "${t.message}\n")
+        Log.d(SERVER_ERROR_TAG, "${t.localizedMessage}\n")
+        Log.d(SERVER_ERROR_TAG, TextUtils.join("\n", t.stackTrace))
+    }
+
+    companion object {
+        private const val SERVER_ERROR_TAG = "SERVER_ERROR_MESSAGE"
     }
 }
 ```
 
+enqueue까지 호출하는 과정이 공통적인 request 객체를 만드는 부분이기에 공통된 request객체를 만들어 response를 받아오는 부분을 부모 클래스로 엮어 상속하였습니다.
+
+```kotlin
+class SignUpRequest(
+    private val signUpDomain: SignUpDomain
+): SOPTBaseRequest<SignUpDTO>() {
+    override fun createCall(): Call<BaseResponse<SignUpDTO>> {
+        return SOPTService.getInstance()
+            .requestSignUp(
+                signUpData = signUpDomain
+            )
+    }
+}
+```
+
+자식 클래스에선 부모클래스의 createCall을 구현하며 call객체를 return합니다.
+
+```kotlin
+SignUpRequest(signUpViewModel.createUserDomain()).apply {
+    setOnSuccessListener { sendSignUpResultAndFinish() }
+    setOnErrorListener { showToast(it.toString()) }
+}.send()
+```
+
+request 요청을 보내기 위해서는 enqueue listener를 달아주고 baseRequest의 send함수를 호출해 enqueue를 호출합니다. 또한 데이터는 뷰모델에서 도메인 객체로 묶어서 전달합니다.
 
 
+
+**🥕 :  받아온 데이터를 딱히 사용할 부분이 없기에 초기에 recycler view를 제작시 github api를 이용하였습니다.**
+
+```kotlin
+private fun loadPortfolio() {
+    GitPortfolioRequest().apply {
+        setOnSuccessListener { onSuccessLoadPortfolio(it) }
+    }.send()
+}
+
+private fun onSuccessLoadPortfolio(portfolioList: List<PortfolioDTO>) {
+    val portfolio: List<PortfolioDomain> = portfolioList.map { it.asDomainModel() }
+    portfolioAdapter?.addAllData(portfolio)
+}
+```
+
+데이터를 받아오면 DTO객체를 Domain 객체로 변경함으로 관심사 분리를 하였습니다.
+
+
+
+앱 내에서는 반드시 Domain 객체를 사용하며 데이터를 받아오는 DTO는 파싱과 Domain으로 변환의 역할을 책임으로 부여하였습니다.
